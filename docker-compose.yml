@@ -1,0 +1,17 @@
+version: "3.8"
+services:
+  backend:
+    container_name: api-container
+    restart: always
+    build: ./backend
+    ports:
+      - "8081:8081"
+
+  client:
+    container_name: client-container
+    restart: always
+    build: ./client
+    ports:
+      - "8080:8080"
+    depends_on:
+      - backend
