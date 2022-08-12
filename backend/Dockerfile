@@ -4,7 +4,8 @@ WORKDIR /
 COPY package*.json /
 EXPOSE 8081
 
-ENV NODE_ENV=production
+ENV NODE_ENV=production\
+    productionVersion=v1
 RUN npm ci
 COPY . /
 CMD ["node", "bin/www"]
