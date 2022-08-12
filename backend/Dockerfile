@@ -8,4 +8,4 @@ ENV NODE_ENV=production\
     productionVersion=v1
 RUN npm ci
 COPY . /
-CMD ["node", "bin/www"]
+CMD ["npm", "start"]

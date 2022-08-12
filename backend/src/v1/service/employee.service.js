@@ -19,24 +19,14 @@ class employeeController {
    * @param {String} name
    * @returns
    */
-  static async getAllEmployee(emp, page, name) {
+  static async getAllEmployee(emp, page) {
     try {
       let result;
-      let limit = 3000;
-      if (!page && !name) {
-        result = await emp.find({}).limit(limit);
-      }
-      if (!name) {
-        const skip = (page - 1) * limit;
-        result = await emp.find({}).skip(skip).limit(limit);
-      }
-      if (page && name) {
-        const skip = (page - 1) * limit;
-        result = await emp
-          .find({ FullName: new RegExp("^" + name + "$", "i") })
-          .skip(skip)
-          .limit(limit);
-      }
+      let limit = 10;
+      !page ? (page = 1) : (page = page);
+      const skip = (page - 1) * limit;
+      result = await emp.find({}).skip(skip).limit(limit);
+
       return { status: "success", message: result };
     } catch (error) {
       return { status: "failed", message: error };
@@ -63,9 +53,9 @@ class employeeController {
    * @param {Object} playload
    * @returns
    */
-  static async updateEmployeeDetails(emp, id, playload) {
+  static async updateEmployeeDetails(emp, id, payload) {
     try {
-      const result = await emp.findOneAndUpdate(id, playload);
+      const result = await emp.findOneAndUpdate(id, { ...payload });
       return { status: "success", message: result };
     } catch (error) {
       return { status: "failed", message: error };
@@ -79,7 +69,8 @@ class employeeController {
    */
   static async deleteEmployee(emp, id) {
     try {
-      const result = await emp.find({ _id: id }).remove();
+      const result = await emp.findOneAndRemove({ _id: id });
+      console.log(result);
       return { status: "success", message: result };
     } catch (error) {
       return { status: "failed", message: error };
