@@ -5,6 +5,6 @@ COPY package*.json /
 EXPOSE 8080
 
 ENV NODE_ENV=production
-RUN npm ci
+RUN npm install 
 COPY . /
 CMD ["npm", "start"]
