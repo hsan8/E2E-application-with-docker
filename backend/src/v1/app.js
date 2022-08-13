@@ -3,6 +3,9 @@ let express = require("express");
 const bodyParser = require("body-parser");
 let logger = require("morgan");
 let app = express();
+let cors = require("cors");
+
+app.use(cors());
 require("../config/database");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());

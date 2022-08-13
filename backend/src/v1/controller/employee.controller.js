@@ -21,7 +21,7 @@ class employeeController {
   static async getAll(req, res) {
     const { page } = req.query;
     const response = await getAllEmployee(Employee, page);
-    return response.status == "success" ? res.status(200).send({ data: response.message }) : res.status(400).send({ error: response.message });
+    return response.status == "success" ? res.status(200).json({ data: response.message }) : res.status(400).send({ error: response.message });
   }
   /**
    *
